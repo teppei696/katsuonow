@@ -17,6 +17,10 @@ function initialize() {
     };
     map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
+    // 自分のいちを設定
+    var myLatlng = new google.maps.LatLng(34.7055613, 135.4939923);
+    markToMap("", myLatlng, map, "", false);
+
     console.log("===== ajax開始 records.json?app=9 =====");
     $.ajax({
         type: 'GET',
@@ -131,7 +135,7 @@ function setShopData(json,now) {
         var strContent = "<span>" + json.records[i].shop_name.value + "</span>";
         if (now[json.records[i].shop_id.value]) {
             console.log("空き有り shop_id: " + json.records[i].shop_id.value);
-            strContent = strContent + "<br><h5>" + now[json.records[i].shop_id.value] + "人分席が空いてるよ</h5>";
+            strContent = strContent + "<br><b>勝男にいるよ！ " + now[json.records[i].shop_id.value] + "人分席が空いてるよ</b>";
             isOpen = true;
         }
         console.log("strContent: " + strContent);
@@ -148,14 +152,16 @@ function markToMap(name, position, map, strContent, open){
         title:name
     });
     marker.setMap(map);
-    var infoWindow = new google.maps.InfoWindow({
-        content: strContent
-    });
-    google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.open(map, marker);
-    });
-    if (open) {
-        infoWindow.open(map, marker);
+    if (strContent !== "") {
+        var infoWindow = new google.maps.InfoWindow({
+            content: strContent
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+            infoWindow.open(map, marker);
+        });
+        if (open) {
+            infoWindow.open(map, marker);
+        }
     }
 }
 
