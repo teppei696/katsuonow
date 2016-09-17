@@ -1,0 +1,49 @@
+<ons-page>
+    <script type="text/javascript" charset="utf-8">
+
+    // Cordova の読み込み完了まで待機
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Cordova 準備完了
+    //
+    function onDeviceReady() {
+        alert("Device Ready");
+    }
+
+    </script>
+    <div style="background-color: #261e1b; font-size: 30px; color: white;">
+        <span style="display: table-cell; vertical-align: middle;"><img src="img/Ushare_appicon.png"></span>
+        <span style="display: table-cell; vertical-align: middle;">Booking Umbrella</span>
+    </div>
+    <div style="text-align: center;">
+        <div style="text-align: cemter; margin: 30px 15px 30px 15px; font-size: 45px;">
+            <div style="margin: 0px 0px 0px 0px;">
+            18:50 Booking
+            </div>
+        </div>
+        <div style="text-align: left; margin: 0px 15px 0px 15px; padding: 10px; font-size: 30px;">
+            <div>Seven-Eleven KarasumaGojo</div>
+        </div>
+        <!-- 地図の描画領域 -->
+        <div style="margin: 15px; border: solid 2px #808080;" onclick="showSpot();">
+            <div id="map_canvas3" style="width: 100%; height:200px"></div>
+        </div>
+        <div style="text-align: center; margin: 0px 15px 15px 15px; font-size: 30px;">
+            <table style="width: 100%;">
+            <tr>
+            <td style="padding: 10px; width: 100px; border: solid 2px #808080;" onclick="myNavigator.popPage();">
+                Cancel
+            </td>
+            <td style="width: 20px;">
+            </td>
+            <td style="padding: 10px; width: 100px; border: solid 2px #000000; background-color: #261e1b; color: white;" onclick="myNavigator.pushPage('page4.html')" >
+            <span style="" >
+                OK
+            </span>
+            </td>
+            </tr>
+            </table>
+        </div>
+    </div>
+</ons-page>
