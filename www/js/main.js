@@ -19,7 +19,7 @@ function initialize() {
 
     // 自分のいちを設定
     var myLatlng = new google.maps.LatLng(34.7055613, 135.4939923);
-    markToMap("", myLatlng, map, "", false);
+    markToMap("", myLatlng, map, "", false, "img/man.png");
 
     console.log("===== ajax開始 records.json?app=9 =====");
     $.ajax({
@@ -131,26 +131,38 @@ function setShopData(json,now) {
         console.log("latitude: " + json.records[i].latitude.value);
 
         var isOpen = false;
+        var img = "img/bar.png";
         //マッピング
         var strContent = "<span>" + json.records[i].shop_name.value + "</span>";
         if (now[json.records[i].shop_id.value]) {
             console.log("空き有り shop_id: " + json.records[i].shop_id.value);
             strContent = strContent + "<br><b>勝男にいるよ！ " + now[json.records[i].shop_id.value] + "人分席が空いてるよ</b>";
             isOpen = true;
+            img = "img/icon19.png";
         }
         console.log("strContent: " + strContent);
         var myLatlng = new google.maps.LatLng(json.records[i].latitude.value, json.records[i].longitude.value);
-        markToMap(json.records[i].shop_name.value, myLatlng, map, strContent, isOpen);
+        markToMap(json.records[i].shop_name.value, myLatlng, map, strContent, isOpen, img);
     }
     console.log("=====setShopData End=====");
 }
 
 
-function markToMap(name, position, map, strContent, open){
-    var marker = new google.maps.Marker({
-        position: position,
-        title:name
-    });
+function markToMap(name, position, map, strContent, open, img){
+    var marker;
+    if (img == "") {
+        marker = new google.maps.Marker({
+            position: position,
+            title:name
+        });
+    } else {
+        marker = new google.maps.Marker({
+            position: position,
+            title:name,
+            icon: img
+        });
+    }
+
     marker.setMap(map);
     if (strContent !== "") {
         var infoWindow = new google.maps.InfoWindow({
